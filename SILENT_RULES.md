@@ -1,14 +1,15 @@
 # Silent-rule experiment
 
-This branch adds a separate outcome-driven rule-switching benchmark. The existing language/vision benchmarks and default model checkpoint layouts remain intact. This is an experiment in context-dependent computation, not evidence that the architecture prevents catastrophic forgetting.
+This is a separate outcome-driven rule-switching benchmark, included on main. The existing language/vision benchmarks and default model checkpoint layouts remain intact. This is an experiment in context-dependent computation, not evidence that the architecture prevents catastrophic forgetting.
 
 ## Run on your GPU
 
-Install the repository requirements and a CUDA-enabled PyTorch build as described in README.md, then use this branch:
+Install the repository requirements and a CUDA-enabled PyTorch build as described in README.md, then update main:
 
 ```bash
 git fetch origin
-git switch --track origin/experiment/silent-rule-feedback
+git switch main
+git pull --ff-only origin main
 python -m pytest -q
 
 # A single frozen pretrained GPT-2 experiment (downloads weights on first use).
@@ -81,4 +82,4 @@ Four feedback conditions replay the same test streams: all feedback, informative
 
 The hypothesis is supported only if gains repeat across seeds, especially on informative trials after switches, without harming invariant trials. Compare to the matched additive router and informed references, inspect switch-age and returning-rule performance, and check whether read disconnection selectively removes useful context influence. A frozen backbone protects its weights from drift; it does not guarantee correct routing, indefinite memory retention, or preservation of all pretrained behavior. Returning-rule accuracy measures within-stream interference, not a complete catastrophic-forgetting benchmark.
 
-The biological motivation is compartmentalized context/sensory integration and a selective intervention. This implementation does not identify multiplication with literal biological XOR, prove a dendritic mechanism, or implement continuous wall-clock dynamics. Heavy multi-seed GPU experiments are left for the GPU run; passing software tests is not a positive scientific result.
+The biological motivation is compartmentalized context/sensory integration and a selective intervention. This implementation does not identify multiplication with literal biological XOR, prove a dendritic mechanism, or implement continuous wall-clock dynamics. The first completed GPU seed and provisional comparison are recorded in [the interim GPU analysis](results/GPU_INTERIM_2026-10-30.md). It demonstrates useful history dependence on this task; the multi-seed architecture comparison remains incomplete. Passing software tests alone is not a positive scientific result.

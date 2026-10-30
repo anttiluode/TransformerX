@@ -2,12 +2,31 @@
 
 **A continuing state that changes how a transformer processes its next observation.**
 
-Two experiments, one memory mechanism:
+Three experiments, one memory mechanism:
 
 - **Language:** remember changing dictionaries in two contexts, answer after distracting events, and return to an earlier context. Pretrained option: DistilGPT-2.
 - **Vision:** observe two moving objects, track direction changes, and answer about either object after both disappear. Pretrained option: ViT.
+- **Silent rules:** infer an unannounced changing categorization rule from noisy feedback, with matched interaction/additive routing and state-disconnection controls. Pretrained option: DistilGPT-2.
 
-This is an experimental implementation inspired by [RoundAndRound](https://github.com/anttiluode/RoundAndRound) and [LoopAImemory](https://github.com/anttiluode/LoopAImemory). **No improvement over existing transformers has been established.** The language task is supervised classification of textual queries, not a chat model or language-generation benchmark. The visual scenes are synthetic. Pretrained integrations are real model modifications; local verification uses small randomly initialized GPT-2/ViT configurations, not downloaded pretrained accuracy or GPU performance.
+This is an experimental implementation inspired by [RoundAndRound](https://github.com/anttiluode/RoundAndRound) and [LoopAImemory](https://github.com/anttiluode/LoopAImemory). **One completed GPU seed now shows useful history dependence on the silent-rule task; superiority over alternative memory architectures remains unproven.** The language task is supervised classification of textual queries, not a chat model or language-generation benchmark. The visual scenes are synthetic. Pretrained integrations are real model modifications. Completed pretrained GPU results and their limits are summarized below; the original CPU verification used small randomly initialized GPT-2/ViT configurations.
+
+## GPU results · 30 October 2026 · interim
+
+**The silent-rule loop uses its persistent state productively in the completed seed-7 test.** Normal accuracy is **91.94%**; temporarily disconnecting the state read drops it to **79.92%**, matching the no-history marginal reference on the same streams. Rule-invariant decisions remain at **100%**. Restoring state access restores the original predictions exactly.
+
+| Completed experiment | Test accuracy | Reference / interpretation |
+|---|---:|---|
+| Language dictionaries, frozen DistilGPT-2 | 23.96% | Near 25% chance; no demonstrated learning |
+| Occluded motion, frozen ViT | 24.74% | Near 25% chance; no demonstrated learning |
+| Silent rules, interaction loop, frozen DistilGPT-2 | **91.94%** | No-history: **79.92%**; known-model Bayesian filter: **92.61%** |
+
+![GPU test results and provisional validation curves](results/figures/gpu-interim-2026-10-30.svg)
+
+The silent test has 6,144 trials in 64 episodes, using the checkpoint selected at step 925 of 1,000. It gains **12.03 percentage points** over read disconnection. This supports useful state-dependent computation on this task, not a special benefit from multiplication: the additive router is still running and already reaches **90.5% validation accuracy at step 150**, versus **90.4%** for interaction at that step. Validation figures are not final test scores.
+
+A limitation is already visible: with no informative feedback, the active loop falls below the marginal reference (70.59% with no feedback; 70.82% with invariant-only feedback). The `no feedback` marker is outside its training distribution. Reliable fallback, multiple training seeds, additive/concat comparisons, and other memory baselines remain open.
+
+Read the **[full interim analysis, intervention tables, switch recovery and source links](results/GPU_INTERIM_2026-10-30.md)**. The language/vision failures remain part of the record. No general language-generation gain or solution to catastrophic forgetting is claimed.
 
 ## Start on Windows
 
@@ -120,6 +139,6 @@ Read [the experiment protocol](docs/PROTOCOL.md), [implementation design](docs/d
 
 MIT license. Built as a falsifiable next step from RoundAndRound.
 
-## Silent-rule branch experiment
+## Silent-rule experiment
 
 See [SILENT_RULES.md](SILENT_RULES.md) for outcome-driven silent rule switches, a matched multiplicative/additive router comparison, exact belief-filter references, and non-destructive read-disconnection tests. The original commands above remain available.

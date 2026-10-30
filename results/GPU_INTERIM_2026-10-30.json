@@ -1,0 +1,99 @@
+{
+  "date": "2026-10-30",
+  "training_seeds_completed": 1,
+  "selected_step": 925,
+  "episodes": 64,
+  "trials_per_condition": 6144,
+  "paired_read_benefit_pp": 12.027994791666668,
+  "paired_episode_bootstrap_95_percentile_pp": [
+    10.172526041666668,
+    13.8671875
+  ],
+  "bootstrap_scope": "Test episodes conditional on one trained checkpoint; not training-seed uncertainty",
+  "post_switch_excludes_initial_segment": {
+    "0": {
+      "count": 293,
+      "normal": 0.6791808873720137,
+      "bayes": 0.6825938566552902,
+      "disconnected": 0.7918088737201365
+    },
+    "1": {
+      "count": 273,
+      "normal": 0.7838827838827839,
+      "bayes": 0.7655677655677655,
+      "disconnected": 0.7838827838827839
+    },
+    "2": {
+      "count": 263,
+      "normal": 0.8250950570342205,
+      "bayes": 0.8022813688212928,
+      "disconnected": 0.7680608365019012
+    },
+    "3": {
+      "count": 240,
+      "normal": 0.8833333333333333,
+      "bayes": 0.8833333333333333,
+      "disconnected": 0.7666666666666667
+    },
+    "4": {
+      "count": 219,
+      "normal": 0.9041095890410958,
+      "bayes": 0.908675799086758,
+      "disconnected": 0.7625570776255708
+    },
+    "5-9": {
+      "count": 947,
+      "normal": 0.9303062302006336,
+      "bayes": 0.9334741288278775,
+      "disconnected": 0.7961985216473073
+    },
+    "10+": {
+      "count": 2543,
+      "normal": 0.9575304758159654,
+      "bayes": 0.9728666928824223,
+      "disconnected": 0.8100668501769563
+    }
+  },
+  "additive_log": {
+    "status": "in progress; user-provided console observations only",
+    "observations": [
+      {
+        "step": 25,
+        "val_nll": 0.3902,
+        "val_accuracy": 0.805
+      },
+      {
+        "step": 50,
+        "val_nll": 0.2827,
+        "val_accuracy": 0.89
+      },
+      {
+        "step": 75,
+        "val_nll": 0.2612,
+        "val_accuracy": 0.9
+      },
+      {
+        "step": 100,
+        "val_nll": 0.3739,
+        "val_accuracy": 0.837
+      },
+      {
+        "step": 125,
+        "val_nll": 0.282,
+        "val_accuracy": 0.885
+      },
+      {
+        "step": 150,
+        "val_nll": 0.2545,
+        "val_accuracy": 0.905
+      }
+    ]
+  },
+  "source_sha256": {
+    "runs/silent-routing/loop-interaction/seed-7/results.json": "797cdae75ab445c560d4b9d0d78576616d92eeeae1e7df843884ed62b06d75a4",
+    "runs/silent-routing/loop-interaction/seed-7/trials.csv": "9c4ada37ac5439796d39e5e1ef59dffb740245ab0374e46f7077503827637352",
+    "runs/silent-routing/loop-interaction/seed-7/validation.csv": "8ead0ed454b216a21f03ab5b631016dce5bf9e6e2c731c362bc39dc8a33707ad",
+    "runs/language-gpu/results.json": "f20cc096e3f18d42d8630a04a39f5c631bcb4a412c710ccbf7560c014074b2de",
+    "runs/vision-gpu/results.json": "420c83329784abcfed15f8faea973337fe28cb52c253831a69ad2b4a3de54c2a"
+  }
+}
