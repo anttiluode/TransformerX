@@ -1,5 +1,7 @@
 # First GPU results: useful state, multiplication still unproven
 
+> Superseded by the [completed three-seed, three-router analysis](FULL_SWEEP_2026-10-30.md). This earlier snapshot is retained for provenance.
+
 > Historical snapshot: additive has since completed. See the [completed seed-7 router comparison](ROUTER_COMPARISON_2026-10-30.md) for the current comparison; the provisional log and chart below are preserved as originally reported.
 
 **Interim update, 30 October 2026.** Three completed runs are available: original language, original vision, and silent-rule interaction, all training seed 7. The additive silent-rule run is still in progress in the supplied log (through step 150); no completed additive or concat test result was available for this update.

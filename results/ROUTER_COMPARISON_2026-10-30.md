@@ -1,5 +1,7 @@
 # Completed interaction vs additive comparison — seed 7
 
+> Superseded by the [completed three-seed, three-router analysis](FULL_SWEEP_2026-10-30.md). This earlier snapshot is retained for provenance.
+
 **30 October 2026.** Both runs completed 1,000 training steps. Concat has a configuration file but no completed results in this snapshot; seeds 17 and 27 are not yet available. This update supersedes the unfinished additive comparison in the [earlier GPU report](GPU_INTERIM_2026-10-30.md).
 
 **Conclusion:** both router variants learned useful history-dependent decisions. Their primary test accuracies are nearly tied in this seed. We have not established that the multiplicative routing term improves the standard task. There is an exploratory advantage for interaction when invariant feedback is withheld, which needs replication.
