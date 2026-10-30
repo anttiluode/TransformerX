@@ -1,0 +1,506 @@
+{
+  "status": "experiment result; superiority requires matched multi-seed comparisons",
+  "completed_steps": 1000,
+  "selected_step": 50,
+  "model": {
+    "task": "language",
+    "mode": "loop",
+    "backbone": "hf",
+    "model_name": "distilbert/distilgpt2",
+    "dim": 96,
+    "state_dim": 64,
+    "layers": 2,
+    "experts": 4,
+    "rank": 8,
+    "memory_tokens": 4,
+    "window": 8,
+    "image_size": 32,
+    "freeze_backbone": true,
+    "local_files_only": false
+  },
+  "training": {
+    "steps": 1000,
+    "batch": 2,
+    "lr": 0.0003,
+    "seed": 7,
+    "gap": 2,
+    "noise": 0.0,
+    "tbptt": 32,
+    "eval_every": 50,
+    "eval_episodes": 64,
+    "test_episodes": 128,
+    "device": "cuda",
+    "amp": true,
+    "threads": 4,
+    "out": "runs/language-gpu"
+  },
+  "budget": {
+    "parameters": 82073705,
+    "trainable_parameters": 161129,
+    "persistent_scalars_per_stream": 64,
+    "persistent_bytes_fp32_per_stream": 256
+  },
+  "test": {
+    "normal": {
+      "available": true,
+      "accuracy": 0.23958333333333334,
+      "nll": 1.3869577914786835,
+      "queries": 1536,
+      "mean_confidence": 0.25451575906481594,
+      "route_entropy": 0.7874212779391271,
+      "phases": {
+        "first": {
+          "correct": 118,
+          "queries": 512,
+          "accuracy": 0.23046875
+        },
+        "switch": {
+          "correct": 132,
+          "queries": 512,
+          "accuracy": 0.2578125
+        },
+        "return": {
+          "correct": 118,
+          "queries": 512,
+          "accuracy": 0.23046875
+        }
+      },
+      "seconds": 19.040957699995488,
+      "examples": [
+        {
+          "episode": 0,
+          "event": 6,
+          "phase": "first",
+          "target": 2,
+          "prediction": 3
+        },
+        {
+          "episode": 1,
+          "event": 6,
+          "phase": "first",
+          "target": 0,
+          "prediction": 1
+        },
+        {
+          "episode": 0,
+          "event": 7,
+          "phase": "first",
+          "target": 0,
+          "prediction": 3
+        },
+        {
+          "episode": 1,
+          "event": 7,
+          "phase": "first",
+          "target": 1,
+          "prediction": 3
+        },
+        {
+          "episode": 0,
+          "event": 8,
+          "phase": "first",
+          "target": 3,
+          "prediction": 1
+        },
+        {
+          "episode": 1,
+          "event": 8,
+          "phase": "first",
+          "target": 3,
+          "prediction": 3
+        },
+        {
+          "episode": 0,
+          "event": 9,
+          "phase": "first",
+          "target": 1,
+          "prediction": 1
+        },
+        {
+          "episode": 1,
+          "event": 9,
+          "phase": "first",
+          "target": 2,
+          "prediction": 1
+        },
+        {
+          "episode": 0,
+          "event": 16,
+          "phase": "switch",
+          "target": 0,
+          "prediction": 2
+        },
+        {
+          "episode": 1,
+          "event": 16,
+          "phase": "switch",
+          "target": 0,
+          "prediction": 2
+        },
+        {
+          "episode": 0,
+          "event": 17,
+          "phase": "switch",
+          "target": 1,
+          "prediction": 2
+        },
+        {
+          "episode": 1,
+          "event": 17,
+          "phase": "switch",
+          "target": 3,
+          "prediction": 2
+        }
+      ]
+    },
+    "reset": {
+      "available": true,
+      "accuracy": 0.25,
+      "nll": 1.3870503432117403,
+      "queries": 1536,
+      "mean_confidence": 0.2560475041391328,
+      "route_entropy": 0.846234705299139,
+      "phases": {
+        "first": {
+          "correct": 125,
+          "queries": 512,
+          "accuracy": 0.244140625
+        },
+        "switch": {
+          "correct": 134,
+          "queries": 512,
+          "accuracy": 0.26171875
+        },
+        "return": {
+          "correct": 125,
+          "queries": 512,
+          "accuracy": 0.244140625
+        }
+      },
+      "seconds": 18.72862900000473,
+      "examples": [
+        {
+          "episode": 0,
+          "event": 6,
+          "phase": "first",
+          "target": 2,
+          "prediction": 3
+        },
+        {
+          "episode": 1,
+          "event": 6,
+          "phase": "first",
+          "target": 0,
+          "prediction": 3
+        },
+        {
+          "episode": 0,
+          "event": 7,
+          "phase": "first",
+          "target": 0,
+          "prediction": 3
+        },
+        {
+          "episode": 1,
+          "event": 7,
+          "phase": "first",
+          "target": 1,
+          "prediction": 3
+        },
+        {
+          "episode": 0,
+          "event": 8,
+          "phase": "first",
+          "target": 3,
+          "prediction": 1
+        },
+        {
+          "episode": 1,
+          "event": 8,
+          "phase": "first",
+          "target": 3,
+          "prediction": 3
+        },
+        {
+          "episode": 0,
+          "event": 9,
+          "phase": "first",
+          "target": 1,
+          "prediction": 3
+        },
+        {
+          "episode": 1,
+          "event": 9,
+          "phase": "first",
+          "target": 2,
+          "prediction": 1
+        },
+        {
+          "episode": 0,
+          "event": 16,
+          "phase": "switch",
+          "target": 0,
+          "prediction": 2
+        },
+        {
+          "episode": 1,
+          "event": 16,
+          "phase": "switch",
+          "target": 0,
+          "prediction": 2
+        },
+        {
+          "episode": 0,
+          "event": 17,
+          "phase": "switch",
+          "target": 1,
+          "prediction": 2
+        },
+        {
+          "episode": 1,
+          "event": 17,
+          "phase": "switch",
+          "target": 3,
+          "prediction": 2
+        }
+      ]
+    },
+    "shuffle": {
+      "available": true,
+      "accuracy": 0.23958333333333334,
+      "nll": 1.3869568031902115,
+      "queries": 1536,
+      "mean_confidence": 0.25451565778348595,
+      "route_entropy": 0.7874183837109461,
+      "phases": {
+        "first": {
+          "correct": 118,
+          "queries": 512,
+          "accuracy": 0.23046875
+        },
+        "switch": {
+          "correct": 132,
+          "queries": 512,
+          "accuracy": 0.2578125
+        },
+        "return": {
+          "correct": 118,
+          "queries": 512,
+          "accuracy": 0.23046875
+        }
+      },
+      "seconds": 19.277020900000934,
+      "examples": [
+        {
+          "episode": 0,
+          "event": 6,
+          "phase": "first",
+          "target": 2,
+          "prediction": 3
+        },
+        {
+          "episode": 1,
+          "event": 6,
+          "phase": "first",
+          "target": 0,
+          "prediction": 1
+        },
+        {
+          "episode": 0,
+          "event": 7,
+          "phase": "first",
+          "target": 0,
+          "prediction": 3
+        },
+        {
+          "episode": 1,
+          "event": 7,
+          "phase": "first",
+          "target": 1,
+          "prediction": 3
+        },
+        {
+          "episode": 0,
+          "event": 8,
+          "phase": "first",
+          "target": 3,
+          "prediction": 1
+        },
+        {
+          "episode": 1,
+          "event": 8,
+          "phase": "first",
+          "target": 3,
+          "prediction": 3
+        },
+        {
+          "episode": 0,
+          "event": 9,
+          "phase": "first",
+          "target": 1,
+          "prediction": 1
+        },
+        {
+          "episode": 1,
+          "event": 9,
+          "phase": "first",
+          "target": 2,
+          "prediction": 1
+        },
+        {
+          "episode": 0,
+          "event": 16,
+          "phase": "switch",
+          "target": 0,
+          "prediction": 2
+        },
+        {
+          "episode": 1,
+          "event": 16,
+          "phase": "switch",
+          "target": 0,
+          "prediction": 2
+        },
+        {
+          "episode": 0,
+          "event": 17,
+          "phase": "switch",
+          "target": 1,
+          "prediction": 2
+        },
+        {
+          "episode": 1,
+          "event": 17,
+          "phase": "switch",
+          "target": 3,
+          "prediction": 2
+        }
+      ]
+    },
+    "long_gap": {
+      "available": true,
+      "accuracy": 0.23958333333333334,
+      "nll": 1.3869616858040292,
+      "queries": 1536,
+      "mean_confidence": 0.2545145005375768,
+      "route_entropy": 0.8403371394484896,
+      "phases": {
+        "first": {
+          "correct": 118,
+          "queries": 512,
+          "accuracy": 0.23046875
+        },
+        "switch": {
+          "correct": 132,
+          "queries": 512,
+          "accuracy": 0.2578125
+        },
+        "return": {
+          "correct": 118,
+          "queries": 512,
+          "accuracy": 0.23046875
+        }
+      },
+      "seconds": 28.823841999997967,
+      "examples": [
+        {
+          "episode": 0,
+          "event": 12,
+          "phase": "first",
+          "target": 1,
+          "prediction": 1
+        },
+        {
+          "episode": 1,
+          "event": 12,
+          "phase": "first",
+          "target": 3,
+          "prediction": 3
+        },
+        {
+          "episode": 0,
+          "event": 13,
+          "phase": "first",
+          "target": 0,
+          "prediction": 3
+        },
+        {
+          "episode": 1,
+          "event": 13,
+          "phase": "first",
+          "target": 0,
+          "prediction": 1
+        },
+        {
+          "episode": 0,
+          "event": 14,
+          "phase": "first",
+          "target": 2,
+          "prediction": 3
+        },
+        {
+          "episode": 1,
+          "event": 14,
+          "phase": "first",
+          "target": 2,
+          "prediction": 1
+        },
+        {
+          "episode": 0,
+          "event": 15,
+          "phase": "first",
+          "target": 3,
+          "prediction": 1
+        },
+        {
+          "episode": 1,
+          "event": 15,
+          "phase": "first",
+          "target": 1,
+          "prediction": 3
+        },
+        {
+          "episode": 0,
+          "event": 28,
+          "phase": "switch",
+          "target": 3,
+          "prediction": 2
+        },
+        {
+          "episode": 1,
+          "event": 28,
+          "phase": "switch",
+          "target": 3,
+          "prediction": 2
+        },
+        {
+          "episode": 0,
+          "event": 29,
+          "phase": "switch",
+          "target": 1,
+          "prediction": 2
+        },
+        {
+          "episode": 1,
+          "event": 29,
+          "phase": "switch",
+          "target": 0,
+          "prediction": 2
+        }
+      ]
+    },
+    "noise": {
+      "available": false,
+      "reason": "Pixel noise applies to vision only"
+    }
+  },
+  "seconds_this_invocation": 779.3074823000061,
+  "environment": {
+    "python": "3.13.14",
+    "torch": "2.7.1+cu118",
+    "device": "cuda",
+    "cuda": "11.8",
+    "gpu": "NVIDIA GeForce RTX 3060"
+  },
+  "peak_cuda_bytes": 1586945536
+}

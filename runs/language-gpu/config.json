@@ -1,0 +1,40 @@
+{
+  "model": {
+    "task": "language",
+    "mode": "loop",
+    "backbone": "hf",
+    "model_name": "distilbert/distilgpt2",
+    "dim": 96,
+    "state_dim": 64,
+    "layers": 2,
+    "experts": 4,
+    "rank": 8,
+    "memory_tokens": 4,
+    "window": 8,
+    "image_size": 32,
+    "freeze_backbone": true,
+    "local_files_only": false
+  },
+  "training": {
+    "steps": 1000,
+    "batch": 2,
+    "lr": 0.0003,
+    "seed": 7,
+    "gap": 2,
+    "noise": 0.0,
+    "tbptt": 32,
+    "eval_every": 50,
+    "eval_episodes": 64,
+    "test_episodes": 128,
+    "device": "cuda",
+    "amp": true,
+    "threads": 4,
+    "out": "runs/language-gpu"
+  },
+  "budget": {
+    "parameters": 82073705,
+    "trainable_parameters": 161129,
+    "persistent_scalars_per_stream": 64,
+    "persistent_bytes_fp32_per_stream": 256
+  }
+}
