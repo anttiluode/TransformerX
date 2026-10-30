@@ -1,0 +1,42 @@
+{
+  "model": {
+    "task": "vision",
+    "mode": "loop",
+    "backbone": "hf",
+    "model_name": "google/vit-base-patch16-224-in21k",
+    "dim": 96,
+    "state_dim": 64,
+    "layers": 2,
+    "experts": 4,
+    "rank": 8,
+    "memory_tokens": 4,
+    "window": 8,
+    "image_size": 32,
+    "freeze_backbone": true,
+    "local_files_only": false,
+    "router": "concat",
+    "num_classes": 4
+  },
+  "training": {
+    "steps": 1000,
+    "batch": 1,
+    "lr": 0.0003,
+    "seed": 7,
+    "gap": 2,
+    "noise": 0.0,
+    "tbptt": 32,
+    "eval_every": 50,
+    "eval_episodes": 32,
+    "test_episodes": 64,
+    "device": "cuda",
+    "amp": true,
+    "threads": 4,
+    "out": "runs/vision-gpu"
+  },
+  "budget": {
+    "parameters": 86550377,
+    "trainable_parameters": 161129,
+    "persistent_scalars_per_stream": 64,
+    "persistent_bytes_fp32_per_stream": 256
+  }
+}

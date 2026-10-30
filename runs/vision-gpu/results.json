@@ -1,0 +1,508 @@
+{
+  "status": "experiment result; superiority requires matched multi-seed comparisons",
+  "completed_steps": 1000,
+  "selected_step": 800,
+  "model": {
+    "task": "vision",
+    "mode": "loop",
+    "backbone": "hf",
+    "model_name": "google/vit-base-patch16-224-in21k",
+    "dim": 96,
+    "state_dim": 64,
+    "layers": 2,
+    "experts": 4,
+    "rank": 8,
+    "memory_tokens": 4,
+    "window": 8,
+    "image_size": 32,
+    "freeze_backbone": true,
+    "local_files_only": false,
+    "router": "concat",
+    "num_classes": 4
+  },
+  "training": {
+    "steps": 1000,
+    "batch": 1,
+    "lr": 0.0003,
+    "seed": 7,
+    "gap": 2,
+    "noise": 0.0,
+    "tbptt": 32,
+    "eval_every": 50,
+    "eval_episodes": 32,
+    "test_episodes": 64,
+    "device": "cuda",
+    "amp": true,
+    "threads": 4,
+    "out": "runs/vision-gpu"
+  },
+  "budget": {
+    "parameters": 86550377,
+    "trainable_parameters": 161129,
+    "persistent_scalars_per_stream": 64,
+    "persistent_bytes_fp32_per_stream": 256
+  },
+  "test": {
+    "normal": {
+      "available": true,
+      "accuracy": 0.24739583333333334,
+      "nll": 1.410543185658753,
+      "queries": 384,
+      "mean_confidence": 0.3111702974420041,
+      "route_entropy": 0.2102341624752929,
+      "phases": {
+        "first": {
+          "correct": 31,
+          "queries": 128,
+          "accuracy": 0.2421875
+        },
+        "switch": {
+          "correct": 32,
+          "queries": 128,
+          "accuracy": 0.25
+        },
+        "late": {
+          "correct": 32,
+          "queries": 128,
+          "accuracy": 0.25
+        }
+      },
+      "seconds": 18.10171139999875,
+      "examples": [
+        {
+          "episode": 0,
+          "event": 6,
+          "phase": "first",
+          "target": 3,
+          "prediction": 0
+        },
+        {
+          "episode": 0,
+          "event": 7,
+          "phase": "first",
+          "target": 3,
+          "prediction": 1
+        },
+        {
+          "episode": 0,
+          "event": 14,
+          "phase": "switch",
+          "target": 0,
+          "prediction": 1
+        },
+        {
+          "episode": 0,
+          "event": 15,
+          "phase": "switch",
+          "target": 1,
+          "prediction": 0
+        },
+        {
+          "episode": 0,
+          "event": 22,
+          "phase": "late",
+          "target": 0,
+          "prediction": 1
+        },
+        {
+          "episode": 0,
+          "event": 23,
+          "phase": "late",
+          "target": 1,
+          "prediction": 0
+        },
+        {
+          "episode": 1,
+          "event": 6,
+          "phase": "first",
+          "target": 3,
+          "prediction": 1
+        },
+        {
+          "episode": 1,
+          "event": 7,
+          "phase": "first",
+          "target": 1,
+          "prediction": 0
+        },
+        {
+          "episode": 1,
+          "event": 14,
+          "phase": "switch",
+          "target": 0,
+          "prediction": 1
+        },
+        {
+          "episode": 1,
+          "event": 15,
+          "phase": "switch",
+          "target": 3,
+          "prediction": 0
+        },
+        {
+          "episode": 1,
+          "event": 22,
+          "phase": "late",
+          "target": 0,
+          "prediction": 1
+        },
+        {
+          "episode": 1,
+          "event": 23,
+          "phase": "late",
+          "target": 3,
+          "prediction": 0
+        }
+      ]
+    },
+    "reset": {
+      "available": true,
+      "accuracy": 0.24739583333333334,
+      "nll": 1.4101788609599073,
+      "queries": 384,
+      "mean_confidence": 0.30953238904476166,
+      "route_entropy": 0.21867310940676057,
+      "phases": {
+        "first": {
+          "correct": 31,
+          "queries": 128,
+          "accuracy": 0.2421875
+        },
+        "switch": {
+          "correct": 32,
+          "queries": 128,
+          "accuracy": 0.25
+        },
+        "late": {
+          "correct": 32,
+          "queries": 128,
+          "accuracy": 0.25
+        }
+      },
+      "seconds": 18.53551790000347,
+      "examples": [
+        {
+          "episode": 0,
+          "event": 6,
+          "phase": "first",
+          "target": 3,
+          "prediction": 0
+        },
+        {
+          "episode": 0,
+          "event": 7,
+          "phase": "first",
+          "target": 3,
+          "prediction": 1
+        },
+        {
+          "episode": 0,
+          "event": 14,
+          "phase": "switch",
+          "target": 0,
+          "prediction": 1
+        },
+        {
+          "episode": 0,
+          "event": 15,
+          "phase": "switch",
+          "target": 1,
+          "prediction": 0
+        },
+        {
+          "episode": 0,
+          "event": 22,
+          "phase": "late",
+          "target": 0,
+          "prediction": 1
+        },
+        {
+          "episode": 0,
+          "event": 23,
+          "phase": "late",
+          "target": 1,
+          "prediction": 0
+        },
+        {
+          "episode": 1,
+          "event": 6,
+          "phase": "first",
+          "target": 3,
+          "prediction": 1
+        },
+        {
+          "episode": 1,
+          "event": 7,
+          "phase": "first",
+          "target": 1,
+          "prediction": 0
+        },
+        {
+          "episode": 1,
+          "event": 14,
+          "phase": "switch",
+          "target": 0,
+          "prediction": 1
+        },
+        {
+          "episode": 1,
+          "event": 15,
+          "phase": "switch",
+          "target": 3,
+          "prediction": 0
+        },
+        {
+          "episode": 1,
+          "event": 22,
+          "phase": "late",
+          "target": 0,
+          "prediction": 1
+        },
+        {
+          "episode": 1,
+          "event": 23,
+          "phase": "late",
+          "target": 3,
+          "prediction": 0
+        }
+      ]
+    },
+    "shuffle": {
+      "available": false,
+      "reason": "State shuffling requires batch and episode count >= 2"
+    },
+    "long_gap": {
+      "available": true,
+      "accuracy": 0.24739583333333334,
+      "nll": 1.4108487954363227,
+      "queries": 384,
+      "mean_confidence": 0.3098327631596476,
+      "route_entropy": 0.19606834774770374,
+      "phases": {
+        "first": {
+          "correct": 31,
+          "queries": 128,
+          "accuracy": 0.2421875
+        },
+        "switch": {
+          "correct": 32,
+          "queries": 128,
+          "accuracy": 0.25
+        },
+        "late": {
+          "correct": 32,
+          "queries": 128,
+          "accuracy": 0.25
+        }
+      },
+      "seconds": 32.14590400000452,
+      "examples": [
+        {
+          "episode": 0,
+          "event": 12,
+          "phase": "first",
+          "target": 3,
+          "prediction": 0
+        },
+        {
+          "episode": 0,
+          "event": 13,
+          "phase": "first",
+          "target": 3,
+          "prediction": 1
+        },
+        {
+          "episode": 0,
+          "event": 26,
+          "phase": "switch",
+          "target": 0,
+          "prediction": 1
+        },
+        {
+          "episode": 0,
+          "event": 27,
+          "phase": "switch",
+          "target": 1,
+          "prediction": 0
+        },
+        {
+          "episode": 0,
+          "event": 40,
+          "phase": "late",
+          "target": 0,
+          "prediction": 1
+        },
+        {
+          "episode": 0,
+          "event": 41,
+          "phase": "late",
+          "target": 1,
+          "prediction": 0
+        },
+        {
+          "episode": 1,
+          "event": 12,
+          "phase": "first",
+          "target": 3,
+          "prediction": 1
+        },
+        {
+          "episode": 1,
+          "event": 13,
+          "phase": "first",
+          "target": 1,
+          "prediction": 0
+        },
+        {
+          "episode": 1,
+          "event": 26,
+          "phase": "switch",
+          "target": 0,
+          "prediction": 1
+        },
+        {
+          "episode": 1,
+          "event": 27,
+          "phase": "switch",
+          "target": 3,
+          "prediction": 0
+        },
+        {
+          "episode": 1,
+          "event": 40,
+          "phase": "late",
+          "target": 0,
+          "prediction": 1
+        },
+        {
+          "episode": 1,
+          "event": 41,
+          "phase": "late",
+          "target": 3,
+          "prediction": 0
+        }
+      ]
+    },
+    "noise": {
+      "available": true,
+      "accuracy": 0.2265625,
+      "nll": 1.4397601845363777,
+      "queries": 384,
+      "mean_confidence": 0.3325708633443962,
+      "route_entropy": 0.9103705886518583,
+      "phases": {
+        "first": {
+          "correct": 33,
+          "queries": 128,
+          "accuracy": 0.2578125
+        },
+        "switch": {
+          "correct": 32,
+          "queries": 128,
+          "accuracy": 0.25
+        },
+        "late": {
+          "correct": 22,
+          "queries": 128,
+          "accuracy": 0.171875
+        }
+      },
+      "seconds": 18.569562299991958,
+      "examples": [
+        {
+          "episode": 0,
+          "event": 6,
+          "phase": "first",
+          "target": 3,
+          "prediction": 1
+        },
+        {
+          "episode": 0,
+          "event": 7,
+          "phase": "first",
+          "target": 3,
+          "prediction": 3
+        },
+        {
+          "episode": 0,
+          "event": 14,
+          "phase": "switch",
+          "target": 0,
+          "prediction": 0
+        },
+        {
+          "episode": 0,
+          "event": 15,
+          "phase": "switch",
+          "target": 1,
+          "prediction": 0
+        },
+        {
+          "episode": 0,
+          "event": 22,
+          "phase": "late",
+          "target": 0,
+          "prediction": 1
+        },
+        {
+          "episode": 0,
+          "event": 23,
+          "phase": "late",
+          "target": 1,
+          "prediction": 1
+        },
+        {
+          "episode": 1,
+          "event": 6,
+          "phase": "first",
+          "target": 3,
+          "prediction": 0
+        },
+        {
+          "episode": 1,
+          "event": 7,
+          "phase": "first",
+          "target": 1,
+          "prediction": 0
+        },
+        {
+          "episode": 1,
+          "event": 14,
+          "phase": "switch",
+          "target": 0,
+          "prediction": 0
+        },
+        {
+          "episode": 1,
+          "event": 15,
+          "phase": "switch",
+          "target": 3,
+          "prediction": 1
+        },
+        {
+          "episode": 1,
+          "event": 22,
+          "phase": "late",
+          "target": 0,
+          "prediction": 0
+        },
+        {
+          "episode": 1,
+          "event": 23,
+          "phase": "late",
+          "target": 3,
+          "prediction": 0
+        }
+      ]
+    }
+  },
+  "seconds_this_invocation": 1093.6630955,
+  "environment": {
+    "python": "3.13.14",
+    "torch": "2.7.1+cu118",
+    "device": "cuda",
+    "cuda": "11.8",
+    "gpu": "NVIDIA GeForce RTX 3060"
+  },
+  "peak_cuda_bytes": 3095532032
+}
