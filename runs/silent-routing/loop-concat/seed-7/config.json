@@ -1,0 +1,44 @@
+{
+  "model": {
+    "task": "language",
+    "mode": "loop",
+    "backbone": "hf",
+    "model_name": "",
+    "dim": 96,
+    "state_dim": 64,
+    "layers": 2,
+    "experts": 4,
+    "rank": 8,
+    "memory_tokens": 4,
+    "window": 8,
+    "image_size": 32,
+    "freeze_backbone": true,
+    "local_files_only": false,
+    "router": "concat",
+    "num_classes": 2
+  },
+  "training": {
+    "steps": 1000,
+    "batch": 8,
+    "trials": 96,
+    "hazard": 0.05,
+    "feedback_noise": 0.05,
+    "informative_fraction": 0.6,
+    "lr": 0.001,
+    "seed": 7,
+    "tbptt": 16,
+    "eval_every": 25,
+    "eval_episodes": 32,
+    "test_episodes": 64,
+    "device": "cuda",
+    "amp": true,
+    "threads": 4,
+    "out": "runs\\silent-routing\\loop-concat\\seed-7"
+  },
+  "budget": {
+    "parameters": 82072167,
+    "trainable_parameters": 159591,
+    "persistent_scalars_per_stream": 64,
+    "persistent_bytes_fp32_per_stream": 256
+  }
+}
