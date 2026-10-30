@@ -1,0 +1,4 @@
+{
+  "model": {"task": "language", "backbone": "hf", "model_name": "distilbert/distilgpt2", "mode": "loop", "state_dim": 64, "rank": 8, "experts": 4},
+  "training": {"steps": 1000, "batch": 2, "lr": 0.0003, "tbptt": 32, "amp": true, "device": "cuda", "eval_every": 50, "eval_episodes": 64, "test_episodes": 128, "out": "runs/language-gpu"}
+}

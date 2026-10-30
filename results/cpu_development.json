@@ -1,0 +1,667 @@
+{
+  "status": "single-seed 80-step development checks, not evidence of advantage",
+  "runs": [
+    {
+      "completed_steps": 80,
+      "selected_step": 40,
+      "model": {
+        "task": "language",
+        "mode": "loop",
+        "backbone": "tiny",
+        "model_name": "",
+        "dim": 48,
+        "state_dim": 32,
+        "layers": 2,
+        "experts": 4,
+        "rank": 4,
+        "memory_tokens": 4,
+        "window": 8,
+        "image_size": 32,
+        "freeze_backbone": true,
+        "local_files_only": false
+      },
+      "training": {
+        "steps": 80,
+        "batch": 8,
+        "lr": 0.001,
+        "seed": 7,
+        "gap": 2,
+        "noise": 0.0,
+        "tbptt": 32,
+        "eval_every": 40,
+        "eval_episodes": 32,
+        "test_episodes": 64,
+        "device": "auto",
+        "amp": false,
+        "threads": 2,
+        "out": "not committed (local development run)"
+      },
+      "budget": {
+        "parameters": 60969,
+        "trainable_parameters": 60969,
+        "persistent_scalars_per_stream": 32,
+        "persistent_bytes_fp32_per_stream": 128
+      },
+      "environment": {
+        "python": "3.12.14",
+        "torch": "2.15.0+cu132",
+        "device": "cpu",
+        "cuda": "13.2",
+        "gpu": null
+      },
+      "test": {
+        "normal": {
+          "available": true,
+          "accuracy": 0.22526041666666666,
+          "nll": 1.3913857030371826,
+          "queries": 768,
+          "mean_confidence": 0.2639524384091298,
+          "route_entropy": 1.2856399004275982,
+          "phases": {
+            "first": {
+              "correct": 52,
+              "queries": 256,
+              "accuracy": 0.203125
+            },
+            "switch": {
+              "correct": 69,
+              "queries": 256,
+              "accuracy": 0.26953125
+            },
+            "return": {
+              "correct": 52,
+              "queries": 256,
+              "accuracy": 0.203125
+            }
+          }
+        },
+        "reset": {
+          "available": true,
+          "accuracy": 0.23958333333333334,
+          "nll": 1.3919843522210915,
+          "queries": 768,
+          "mean_confidence": 0.2665696206192176,
+          "route_entropy": 1.2984888496307225,
+          "phases": {
+            "first": {
+              "correct": 57,
+              "queries": 256,
+              "accuracy": 0.22265625
+            },
+            "switch": {
+              "correct": 70,
+              "queries": 256,
+              "accuracy": 0.2734375
+            },
+            "return": {
+              "correct": 57,
+              "queries": 256,
+              "accuracy": 0.22265625
+            }
+          }
+        },
+        "shuffle": {
+          "available": true,
+          "accuracy": 0.22526041666666666,
+          "nll": 1.3913695129255454,
+          "queries": 768,
+          "mean_confidence": 0.26394543300072354,
+          "route_entropy": 1.285676152087175,
+          "phases": {
+            "first": {
+              "correct": 52,
+              "queries": 256,
+              "accuracy": 0.203125
+            },
+            "switch": {
+              "correct": 69,
+              "queries": 256,
+              "accuracy": 0.26953125
+            },
+            "return": {
+              "correct": 52,
+              "queries": 256,
+              "accuracy": 0.203125
+            }
+          }
+        },
+        "long_gap": {
+          "available": true,
+          "accuracy": 0.22526041666666666,
+          "nll": 1.3915943217774231,
+          "queries": 768,
+          "mean_confidence": 0.2649726923555136,
+          "route_entropy": 1.315483459694819,
+          "phases": {
+            "first": {
+              "correct": 52,
+              "queries": 256,
+              "accuracy": 0.203125
+            },
+            "switch": {
+              "correct": 69,
+              "queries": 256,
+              "accuracy": 0.26953125
+            },
+            "return": {
+              "correct": 52,
+              "queries": 256,
+              "accuracy": 0.203125
+            }
+          }
+        },
+        "noise": {
+          "available": false,
+          "reason": "Pixel noise applies to vision only"
+        }
+      }
+    },
+    {
+      "completed_steps": 80,
+      "selected_step": 40,
+      "model": {
+        "task": "language",
+        "mode": "none",
+        "backbone": "tiny",
+        "model_name": "",
+        "dim": 48,
+        "state_dim": 32,
+        "layers": 2,
+        "experts": 4,
+        "rank": 4,
+        "memory_tokens": 4,
+        "window": 8,
+        "image_size": 32,
+        "freeze_backbone": true,
+        "local_files_only": false
+      },
+      "training": {
+        "steps": 80,
+        "batch": 8,
+        "lr": 0.001,
+        "seed": 7,
+        "gap": 2,
+        "noise": 0.0,
+        "tbptt": 32,
+        "eval_every": 40,
+        "eval_episodes": 32,
+        "test_episodes": 64,
+        "device": "auto",
+        "amp": false,
+        "threads": 2,
+        "out": "not committed (local development run)"
+      },
+      "budget": {
+        "parameters": 54868,
+        "trainable_parameters": 54868,
+        "persistent_scalars_per_stream": 0,
+        "persistent_bytes_fp32_per_stream": 0
+      },
+      "environment": {
+        "python": "3.12.14",
+        "torch": "2.15.0+cu132",
+        "device": "cpu",
+        "cuda": "13.2",
+        "gpu": null
+      },
+      "test": {
+        "normal": {
+          "available": true,
+          "accuracy": 0.24479166666666666,
+          "nll": 1.3912517751256626,
+          "queries": 768,
+          "mean_confidence": 0.2646122192963958,
+          "route_entropy": null,
+          "phases": {
+            "first": {
+              "correct": 68,
+              "queries": 256,
+              "accuracy": 0.265625
+            },
+            "switch": {
+              "correct": 52,
+              "queries": 256,
+              "accuracy": 0.203125
+            },
+            "return": {
+              "correct": 68,
+              "queries": 256,
+              "accuracy": 0.265625
+            }
+          }
+        },
+        "reset": {
+          "available": true,
+          "accuracy": 0.24479166666666666,
+          "nll": 1.3912517751256626,
+          "queries": 768,
+          "mean_confidence": 0.2646122192963958,
+          "route_entropy": null,
+          "phases": {
+            "first": {
+              "correct": 68,
+              "queries": 256,
+              "accuracy": 0.265625
+            },
+            "switch": {
+              "correct": 52,
+              "queries": 256,
+              "accuracy": 0.203125
+            },
+            "return": {
+              "correct": 68,
+              "queries": 256,
+              "accuracy": 0.265625
+            }
+          }
+        },
+        "shuffle": {
+          "available": true,
+          "accuracy": 0.24479166666666666,
+          "nll": 1.3912517751256626,
+          "queries": 768,
+          "mean_confidence": 0.2646122192963958,
+          "route_entropy": null,
+          "phases": {
+            "first": {
+              "correct": 68,
+              "queries": 256,
+              "accuracy": 0.265625
+            },
+            "switch": {
+              "correct": 52,
+              "queries": 256,
+              "accuracy": 0.203125
+            },
+            "return": {
+              "correct": 68,
+              "queries": 256,
+              "accuracy": 0.265625
+            }
+          }
+        },
+        "long_gap": {
+          "available": true,
+          "accuracy": 0.24479166666666666,
+          "nll": 1.391251762708028,
+          "queries": 768,
+          "mean_confidence": 0.2646122196068366,
+          "route_entropy": null,
+          "phases": {
+            "first": {
+              "correct": 68,
+              "queries": 256,
+              "accuracy": 0.265625
+            },
+            "switch": {
+              "correct": 52,
+              "queries": 256,
+              "accuracy": 0.203125
+            },
+            "return": {
+              "correct": 68,
+              "queries": 256,
+              "accuracy": 0.265625
+            }
+          }
+        },
+        "noise": {
+          "available": false,
+          "reason": "Pixel noise applies to vision only"
+        }
+      }
+    },
+    {
+      "completed_steps": 80,
+      "selected_step": 80,
+      "model": {
+        "task": "vision",
+        "mode": "loop",
+        "backbone": "tiny",
+        "model_name": "",
+        "dim": 48,
+        "state_dim": 32,
+        "layers": 2,
+        "experts": 4,
+        "rank": 4,
+        "memory_tokens": 4,
+        "window": 8,
+        "image_size": 32,
+        "freeze_backbone": true,
+        "local_files_only": false
+      },
+      "training": {
+        "steps": 80,
+        "batch": 8,
+        "lr": 0.001,
+        "seed": 7,
+        "gap": 2,
+        "noise": 0.0,
+        "tbptt": 32,
+        "eval_every": 40,
+        "eval_episodes": 32,
+        "test_episodes": 64,
+        "device": "auto",
+        "amp": false,
+        "threads": 2,
+        "out": "not committed (local development run)"
+      },
+      "budget": {
+        "parameters": 63753,
+        "trainable_parameters": 63753,
+        "persistent_scalars_per_stream": 32,
+        "persistent_bytes_fp32_per_stream": 128
+      },
+      "environment": {
+        "python": "3.12.14",
+        "torch": "2.15.0+cu132",
+        "device": "cpu",
+        "cuda": "13.2",
+        "gpu": null
+      },
+      "test": {
+        "normal": {
+          "available": true,
+          "accuracy": 0.2604166666666667,
+          "nll": 1.3882748608787854,
+          "queries": 384,
+          "mean_confidence": 0.28490754403173923,
+          "route_entropy": 1.2663707428922255,
+          "phases": {
+            "first": {
+              "correct": 32,
+              "queries": 128,
+              "accuracy": 0.25
+            },
+            "switch": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            },
+            "late": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            }
+          }
+        },
+        "reset": {
+          "available": true,
+          "accuracy": 0.2604166666666667,
+          "nll": 1.3880318080385525,
+          "queries": 384,
+          "mean_confidence": 0.28419455885887146,
+          "route_entropy": 1.2733448253323634,
+          "phases": {
+            "first": {
+              "correct": 32,
+              "queries": 128,
+              "accuracy": 0.25
+            },
+            "switch": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            },
+            "late": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            }
+          }
+        },
+        "shuffle": {
+          "available": true,
+          "accuracy": 0.2604166666666667,
+          "nll": 1.388283630212148,
+          "queries": 384,
+          "mean_confidence": 0.2849075390646855,
+          "route_entropy": 1.2663713892300923,
+          "phases": {
+            "first": {
+              "correct": 32,
+              "queries": 128,
+              "accuracy": 0.25
+            },
+            "switch": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            },
+            "late": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            }
+          }
+        },
+        "long_gap": {
+          "available": true,
+          "accuracy": 0.2604166666666667,
+          "nll": 1.388338362177213,
+          "queries": 384,
+          "mean_confidence": 0.28521050202349824,
+          "route_entropy": 1.2634607773451578,
+          "phases": {
+            "first": {
+              "correct": 32,
+              "queries": 128,
+              "accuracy": 0.25
+            },
+            "switch": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            },
+            "late": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            }
+          }
+        },
+        "noise": {
+          "available": true,
+          "accuracy": 0.2604166666666667,
+          "nll": 1.3875946601231892,
+          "queries": 384,
+          "mean_confidence": 0.28772079944610596,
+          "route_entropy": 1.2753707927962143,
+          "phases": {
+            "first": {
+              "correct": 32,
+              "queries": 128,
+              "accuracy": 0.25
+            },
+            "switch": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            },
+            "late": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            }
+          }
+        }
+      }
+    },
+    {
+      "completed_steps": 80,
+      "selected_step": 80,
+      "model": {
+        "task": "vision",
+        "mode": "none",
+        "backbone": "tiny",
+        "model_name": "",
+        "dim": 48,
+        "state_dim": 32,
+        "layers": 2,
+        "experts": 4,
+        "rank": 4,
+        "memory_tokens": 4,
+        "window": 8,
+        "image_size": 32,
+        "freeze_backbone": true,
+        "local_files_only": false
+      },
+      "training": {
+        "steps": 80,
+        "batch": 8,
+        "lr": 0.001,
+        "seed": 7,
+        "gap": 2,
+        "noise": 0.0,
+        "tbptt": 32,
+        "eval_every": 40,
+        "eval_episodes": 32,
+        "test_episodes": 64,
+        "device": "auto",
+        "amp": false,
+        "threads": 2,
+        "out": "not committed (local development run)"
+      },
+      "budget": {
+        "parameters": 57652,
+        "trainable_parameters": 57652,
+        "persistent_scalars_per_stream": 0,
+        "persistent_bytes_fp32_per_stream": 0
+      },
+      "environment": {
+        "python": "3.12.14",
+        "torch": "2.15.0+cu132",
+        "device": "cpu",
+        "cuda": "13.2",
+        "gpu": null
+      },
+      "test": {
+        "normal": {
+          "available": true,
+          "accuracy": 0.2604166666666667,
+          "nll": 1.3889210124810536,
+          "queries": 384,
+          "mean_confidence": 0.2940507947156827,
+          "route_entropy": null,
+          "phases": {
+            "first": {
+              "correct": 32,
+              "queries": 128,
+              "accuracy": 0.25
+            },
+            "switch": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            },
+            "late": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            }
+          }
+        },
+        "reset": {
+          "available": true,
+          "accuracy": 0.2604166666666667,
+          "nll": 1.3889210124810536,
+          "queries": 384,
+          "mean_confidence": 0.2940507947156827,
+          "route_entropy": null,
+          "phases": {
+            "first": {
+              "correct": 32,
+              "queries": 128,
+              "accuracy": 0.25
+            },
+            "switch": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            },
+            "late": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            }
+          }
+        },
+        "shuffle": {
+          "available": true,
+          "accuracy": 0.2604166666666667,
+          "nll": 1.3889210124810536,
+          "queries": 384,
+          "mean_confidence": 0.2940507947156827,
+          "route_entropy": null,
+          "phases": {
+            "first": {
+              "correct": 32,
+              "queries": 128,
+              "accuracy": 0.25
+            },
+            "switch": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            },
+            "late": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            }
+          }
+        },
+        "long_gap": {
+          "available": true,
+          "accuracy": 0.2604166666666667,
+          "nll": 1.3889210124810536,
+          "queries": 384,
+          "mean_confidence": 0.2940507947156827,
+          "route_entropy": null,
+          "phases": {
+            "first": {
+              "correct": 32,
+              "queries": 128,
+              "accuracy": 0.25
+            },
+            "switch": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            },
+            "late": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            }
+          }
+        },
+        "noise": {
+          "available": true,
+          "accuracy": 0.2604166666666667,
+          "nll": 1.3874319394429524,
+          "queries": 384,
+          "mean_confidence": 0.2846709241469701,
+          "route_entropy": null,
+          "phases": {
+            "first": {
+              "correct": 32,
+              "queries": 128,
+              "accuracy": 0.25
+            },
+            "switch": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            },
+            "late": {
+              "correct": 34,
+              "queries": 128,
+              "accuracy": 0.265625
+            }
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "transformerx"
+version = "0.1.0"
+description = "Controlled language and vision experiments in persistent transformer state"
+requires-python = ">=3.10"
+dependencies = ["torch>=2.6", "numpy>=1.24", "Pillow>=10"]
+
+[project.optional-dependencies]
+pretrained = ["transformers>=4.46,<5"]
+test = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+include = ["transformerx*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

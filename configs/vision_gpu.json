@@ -1,0 +1,4 @@
+{
+  "model": {"task": "vision", "backbone": "hf", "model_name": "google/vit-base-patch16-224-in21k", "mode": "loop", "state_dim": 64, "rank": 8, "experts": 4},
+  "training": {"steps": 1000, "batch": 1, "lr": 0.0003, "tbptt": 32, "amp": true, "device": "cuda", "eval_every": 50, "eval_episodes": 32, "test_episodes": 64, "out": "runs/vision-gpu"}
+}

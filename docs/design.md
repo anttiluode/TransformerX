@@ -1,0 +1,15 @@
+# TransformerX: a continuing state inside existing transformers
+
+User scope (30 October 2026): implement both changing-rule language and changing-scene vision tracks; heavy training will run on the user's GPU.
+
+The recommended state-controlled adapter design from the conversation is the implementation basis. A shared bounded recurrent state reads a transformer's current representation, controls a soft mixture of low-rank residual operators inside a transformer block, and receives the resulting representation for its next update. Reads use the preceding state; updates happen only after the current forward pass. State is explicit, per stream, reset at independent episode boundaries, and never stored in global module buffers. Persistent state changes during inference; adapter weights change only during supervised training in this first version.
+
+Two real pretrained backbones are supported: GPT-2-family language models and Hugging Face ViT vision models. A tiny local transformer in each modality provides offline tests and a fast mechanism benchmark. Frozen pretrained weights still participate in autograd so the memory interface can learn. Tasks use supervised classification heads; the language experiment is controlled textual rule following, not open-ended chatbot improvement. The visual experiment uses rendered moving objects and occlusion, not a claim about real video understanding.
+
+Controls: current observation only, static routed adapters, GRU memory, recurrent memory tokens, loop with ordinary rotation, loop without rotation, hard routing, and a fixed observation window. Baselines share observation streams, backbone initialization, training budget and split seeds; report actual parameter/state/runtime budgets rather than falsely claiming exact matching. Memory-token control is an RMT-inspired control, not a reproduction of the published RMT architecture. No Möbius-specific claim.
+
+Language: randomized symbol-to-label dictionaries in two named contexts, A/B/A returns, distracting events, held-out permutations and delayed queries. Target answers are not included in query inputs. Vision: two independently moving colored objects, hidden frames, queried object identity, direction classification, reversals, held-out scene seeds, longer occlusions and visual noise. Both return masks and phase metadata for scored queries; no task answer or hidden velocity is supplied to the encoder.
+
+Train/eval: PyTorch, deterministic episode seeds, separate train/validation/test seed namespaces, CUDA AMP option, gradient clipping, truncated BPTT, atomic latest/best checkpoints, resume, JSON/CSV metrics and state reset/shuffle interventions. First proof is pipeline correctness and small-run learnability. GPU performance claims require the user's later results.
+
+Alternatives considered: memory tokens are simpler and included as a control; online weight learning is deferred until an inference-state mechanism earns an advantage. Multiple independent full transformer rollouts are not implemented; soft adapter routing does not claim to preserve separate nonlinear hypotheses.

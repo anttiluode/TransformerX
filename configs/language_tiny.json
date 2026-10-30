@@ -1,0 +1,4 @@
+{
+  "model": {"task": "language", "backbone": "tiny", "mode": "loop"},
+  "training": {"steps": 500, "batch": 16, "eval_every": 50, "device": "auto", "out": "runs/language-tiny"}
+}
