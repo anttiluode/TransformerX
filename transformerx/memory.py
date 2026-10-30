@@ -14,13 +14,18 @@ def masked_mean(h, mask):
 
 
 class OperatorMemory(nn.Module):
-    def __init__(self, dim, state_dim, experts, rank, mode):
+    def __init__(self, dim, state_dim, experts, rank, mode, router="concat"):
         super().__init__()
         self.mode, self.state_dim = mode, state_dim
         self.norm = nn.LayerNorm(dim)
         self.down = nn.Parameter(torch.randn(experts, dim, rank) / math.sqrt(dim))
         self.up = nn.Parameter(torch.randn(experts, rank, dim) * .01)
-        self.route = nn.Linear(dim + (0 if mode == 'static' else state_dim), experts)
+        self.router = router
+        extra = 0 if router == 'concat' else rank
+        if extra:
+            self.state_project = nn.Linear(state_dim, rank, bias=False)
+            self.input_project = nn.Linear(dim, rank, bias=False)
+        self.route = nn.Linear(dim + (0 if mode == 'static' else state_dim) + extra, experts)
         self.scale = nn.Parameter(torch.tensor(-2.0))
         if mode != 'static':
             self.read = nn.Linear(state_dim, dim, bias=False)
@@ -36,6 +41,11 @@ class OperatorMemory(nn.Module):
         x = self.norm(h)
         pooled = masked_mean(x, mask)
         features = pooled if self.mode == 'static' else torch.cat((pooled, memory), -1)
+        if self.router != 'concat':
+            u = self.state_project(memory).tanh()
+            v = self.input_project(pooled).tanh()
+            interaction = u * v if self.router == 'interaction' else (u + v) / math.sqrt(2)
+            features = torch.cat((features, interaction), -1)
         probs = self.route(features).softmax(-1)
         if self.mode == 'loop_hard':
             hard = torch.nn.functional.one_hot(probs.argmax(-1), probs.shape[-1]).to(probs)

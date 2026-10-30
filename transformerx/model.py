@@ -23,6 +23,8 @@ class Config:
     image_size: int = 32
     freeze_backbone: bool = True
     local_files_only: bool = False
+    router: str = "concat"
+    num_classes: int = 4
 
 
 class TinyBackbone(nn.Module):
@@ -67,6 +69,10 @@ class StreamModel(nn.Module):
             raise ValueError('Layer, rank, expert, token and window counts must be positive')
         if cfg.image_size < 16 or cfg.image_size % 8:
             raise ValueError('image_size must be >=16 and divisible by 8')
+        if cfg.num_classes < 2 or cfg.router not in ('concat', 'interaction', 'additive'):
+            raise ValueError('Invalid classifier size or router')
+        if cfg.router != 'concat' and cfg.mode in ('none', 'static', 'tokens', 'window'):
+            raise ValueError('Interaction/additive routing requires a stateful operator controller')
         self.cfg = cfg
         self.tokenizer = tokenizer or TinyTokenizer()
         self.image_mean, self.image_std = (.5,) * 3, (.5,) * 3
@@ -110,12 +116,12 @@ class StreamModel(nn.Module):
         elif cfg.mode == 'tokens':
             self.controller = TokenMemory(self.dim, cfg.memory_tokens)
         else:
-            self.controller = OperatorMemory(self.dim, cfg.state_dim, cfg.experts, cfg.rank, cfg.mode)
+            self.controller = OperatorMemory(self.dim, cfg.state_dim, cfg.experts, cfg.rank, cfg.mode, cfg.router)
         if cfg.mode == 'window':
             self.temporal_position = nn.Parameter(torch.randn(cfg.window, self.dim) * .02)
             self.temporal = nn.TransformerEncoderLayer(self.dim, 4, self.dim * 2,
                                     dropout=0., batch_first=True, norm_first=True)
-        self.head = nn.Sequential(nn.LayerNorm(self.dim), nn.Linear(self.dim, 4))
+        self.head = nn.Sequential(nn.LayerNorm(self.dim), nn.Linear(self.dim, cfg.num_classes))
 
     def train(self, mode=True):
         super().train(mode)
@@ -158,14 +164,18 @@ class StreamModel(nn.Module):
             x = (x - mean) / std
         return x, None
 
-    def forward_step(self, observation, state):
+    def forward_step(self, observation, state, *, context_enabled=True, update_state=True):
         x, mask = self._prepare(observation)
         diagnostics = {}
 
         def inject(module, inputs, output):
             hidden = output[0] if isinstance(output, tuple) else output
-            changed, weights = self.controller.apply(hidden, state.get('memory'), mask)
+            memory = state.get('memory')
+            if not context_enabled and memory is not None:
+                memory = torch.zeros_like(memory)
+            changed, weights = self.controller.apply(hidden, memory, mask)
             if weights is not None:
+                diagnostics['route_weights'] = weights.detach()
                 diagnostics['route_entropy'] = -(weights * weights.clamp_min(1e-8).log()).sum(-1).detach()
             return (changed,) + output[1:] if isinstance(output, tuple) else changed
 
@@ -182,7 +192,8 @@ class StreamModel(nn.Module):
                 handle.remove()
         pooled = masked_mean(hidden, mask)
         if self.cfg.mode == 'window':
-            history = torch.cat((state['history'], pooled.unsqueeze(1)), 1)[:, -self.cfg.window:]
+            previous = state['history'] if context_enabled else state['history'][:, :0]
+            history = torch.cat((previous, pooled.unsqueeze(1)), 1)[:, -self.cfg.window:]
             z = history + self.temporal_position[-history.shape[1]:]
             pooled = self.temporal(z)[:, -1]
             new_state = {'history': history}
@@ -193,7 +204,7 @@ class StreamModel(nn.Module):
         else:
             new_state = {}
         logits = self.head(pooled)
-        return logits, new_state, diagnostics
+        return logits, new_state if update_state else state, diagnostics
 
     def budget(self):
         mode = self.cfg.mode

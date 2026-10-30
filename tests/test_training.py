@@ -73,3 +73,19 @@ def test_interrupted_final_report_can_resume_without_extra_training(tmp_path):
     assert (tmp_path / 'results.json').exists()
     for name in before:
         torch.testing.assert_close(before[name], after[name], rtol=0, atol=0)
+
+
+def test_legacy_checkpoint_defaults_can_resume(tmp_path):
+    from transformerx.model import Config
+    from transformerx.run import TrainOptions, train, read_checkpoint
+    cfg=Config(dim=16,state_dim=8,layers=1,rank=2)
+    opts=TrainOptions(steps=1,batch=1,eval_episodes=1,test_episodes=1,
+                      threads=1,out=str(tmp_path))
+    train(cfg,opts)
+    path=tmp_path/'latest.pt'
+    payload=read_checkpoint(path)
+    payload['model_config'].pop('router')
+    payload['model_config'].pop('num_classes')
+    torch.save(payload,path)
+    opts.steps=2
+    assert train(cfg,opts,resume=path)['completed_steps']==2

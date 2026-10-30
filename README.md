@@ -119,3 +119,7 @@ Read [the experiment protocol](docs/PROTOCOL.md), [implementation design](docs/d
 - [Titans](https://arxiv.org/abs/2501.00663)
 
 MIT license. Built as a falsifiable next step from RoundAndRound.
+
+## Silent-rule branch experiment
+
+See [SILENT_RULES.md](SILENT_RULES.md) for outcome-driven silent rule switches, a matched multiplicative/additive router comparison, exact belief-filter references, and non-destructive read-disconnection tests. The original commands above remain available.

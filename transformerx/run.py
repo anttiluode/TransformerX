@@ -194,7 +194,7 @@ def train(cfg, opts, resume=None):
     first, best = 0, float('inf')
     if resume:
         payload = read_checkpoint(resume)
-        if payload['model_config'] != asdict(cfg):
+        if asdict(Config(**payload['model_config'])) != asdict(cfg):
             raise ValueError('Resume model config differs from checkpoint config')
         # Episode ordering and optimization must stay compatible for a genuine resume.
         for field in ('batch', 'seed', 'gap', 'noise', 'tbptt', 'lr', 'amp'):
