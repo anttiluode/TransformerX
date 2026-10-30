@@ -8,25 +8,26 @@ Three experiments, one memory mechanism:
 - **Vision:** observe two moving objects, track direction changes, and answer about either object after both disappear. Pretrained option: ViT.
 - **Silent rules:** infer an unannounced changing categorization rule from noisy feedback, with matched interaction/additive routing and state-disconnection controls. Pretrained option: DistilGPT-2.
 
-This is an experimental implementation inspired by [RoundAndRound](https://github.com/anttiluode/RoundAndRound) and [LoopAImemory](https://github.com/anttiluode/LoopAImemory). **One completed GPU seed now shows useful history dependence on the silent-rule task; superiority over alternative memory architectures remains unproven.** The language task is supervised classification of textual queries, not a chat model or language-generation benchmark. The visual scenes are synthetic. Pretrained integrations are real model modifications. Completed pretrained GPU results and their limits are summarized below; the original CPU verification used small randomly initialized GPT-2/ViT configurations.
+This is an experimental implementation inspired by [RoundAndRound](https://github.com/anttiluode/RoundAndRound) and [LoopAImemory](https://github.com/anttiluode/LoopAImemory). **Completed interaction and additive runs both show useful history dependence on the silent-rule task in seed 7; a multiplication-specific advantage remains unproven.** The language task is supervised classification of textual queries, not a chat model or language-generation benchmark. The visual scenes are synthetic. Pretrained integrations are real model modifications. Completed pretrained GPU results and their limits are summarized below; the original CPU verification used small randomly initialized GPT-2/ViT configurations.
 
 ## GPU results · 30 October 2026 · interim
 
-**The silent-rule loop uses its persistent state productively in the completed seed-7 test.** Normal accuracy is **91.94%**; temporarily disconnecting the state read drops it to **79.92%**, matching the no-history marginal reference on the same streams. Rule-invariant decisions remain at **100%**. Restoring state access restores the original predictions exactly.
+**Both silent-rule router variants use persistent state productively in the completed seed-7 tests.** Interaction accuracy is **91.94%**, and additive accuracy is **91.86%**; temporarily disconnecting the state read drops both to **79.92%**, matching the no-history marginal reference on the same streams. Rule-invariant decisions remain at **100%**. Restoring state access restores the original predictions exactly.
 
 | Completed experiment | Test accuracy | Reference / interpretation |
 |---|---:|---|
 | Language dictionaries, frozen DistilGPT-2 | 23.96% | Near 25% chance; no demonstrated learning |
 | Occluded motion, frozen ViT | 24.74% | Near 25% chance; no demonstrated learning |
 | Silent rules, interaction loop, frozen DistilGPT-2 | **91.94%** | No-history: **79.92%**; known-model Bayesian filter: **92.61%** |
+| Silent rules, additive loop, frozen DistilGPT-2 | **91.86%** | Same data and parameter budget; state disconnected: **79.92%** |
 
-![GPU test results and provisional validation curves](results/figures/gpu-interim-2026-10-30.svg)
+Each silent test uses the same 6,144 trials in 64 episodes. Validation selects interaction at step **925** and additive at step **825**, not their last training step. Interaction answers only **five more trials correctly**, a **0.08 percentage-point** difference. A paired episode-bootstrap interval spans −0.28 to +0.46 points; this seed does not establish a standard-task accuracy advantage for multiplication.
 
-The silent test has 6,144 trials in 64 episodes, using the checkpoint selected at step 925 of 1,000. It gains **12.03 percentage points** over read disconnection. This supports useful state-dependent computation on this task, not a special benefit from multiplication: the additive router is still running and already reaches **90.5% validation accuracy at step 150**, versus **90.4%** for interaction at that step. Validation figures are not final test scores.
+Both models lose about **12 percentage points** when state access is disconnected. An exploratory difference appears with **informative-only feedback**: interaction scores **89.71%**, additive **88.07%**. This possible robustness benefit needs further seeds, particularly because feedback masking introduces an unfamiliar `no feedback` marker.
 
-A limitation is already visible: with no informative feedback, the active loop falls below the marginal reference (70.59% with no feedback; 70.82% with invariant-only feedback). The `no feedback` marker is outside its training distribution. Reliable fallback, multiple training seeds, additive/concat comparisons, and other memory baselines remain open.
+Both also share a limitation: with no feedback the active loop falls below the 79.92% marginal reference (**70.59% interaction; 70.38% additive**). Useful memory is demonstrated here; reliable fallback and architectural superiority are not. Concat and the remaining training seeds are still pending in this snapshot.
 
-Read the **[full interim analysis, intervention tables, switch recovery and source links](results/GPU_INTERIM_2026-10-30.md)**. The language/vision failures remain part of the record. No general language-generation gain or solution to catastrophic forgetting is claimed.
+Read the **[completed router comparison, ablations and reproducible audit](results/ROUTER_COMPARISON_2026-10-30.md)** and the [earlier interaction report with switch-recovery analysis](results/GPU_INTERIM_2026-10-30.md). The language/vision failures remain part of the record. No general language-generation gain or solution to catastrophic forgetting is claimed.
 
 ## Start on Windows
 

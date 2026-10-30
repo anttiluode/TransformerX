@@ -1,5 +1,7 @@
 # First GPU results: useful state, multiplication still unproven
 
+> Historical snapshot: additive has since completed. See the [completed seed-7 router comparison](ROUTER_COMPARISON_2026-10-30.md) for the current comparison; the provisional log and chart below are preserved as originally reported.
+
 **Interim update, 30 October 2026.** Three completed runs are available: original language, original vision, and silent-rule interaction, all training seed 7. The additive silent-rule run is still in progress in the supplied log (through step 150); no completed additive or concat test result was available for this update.
 
 **Finding:** the silent-rule controller uses persistent state to improve held-out decisions. That is a positive result for this trained system on this synthetic task. It does not establish an advantage over other recurrent controllers, a special benefit from multiplicative routing, or prevention of catastrophic forgetting.

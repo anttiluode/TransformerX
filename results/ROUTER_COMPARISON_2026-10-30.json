@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-30",
+  "training_seed": 7,
+  "trials_per_condition": 6144,
+  "episodes": 64,
+  "bootstrap_resamples": 10000,
+  "bootstrap_seed": 20261030,
+  "scope": "Test-episode uncertainty conditional on two selected seed-7 checkpoints; not training-seed uncertainty or an equivalence test",
+  "selected_steps": {
+    "interaction": 925,
+    "additive": 825
+  },
+  "matched_data_and_configuration": true,
+  "comparisons": {
+    "all": {
+      "interaction_correct": 5649,
+      "additive_correct": 5644,
+      "interaction_only_correct": 55,
+      "additive_only_correct": 50,
+      "interaction_minus_additive_pp": 0.08138020833333334,
+      "paired_episode_bootstrap_95_percentile_pp": [
+        -0.27669270833333337,
+        0.45572916666666663
+      ],
+      "interaction_minus_additive_nll": -0.0035546207220830683
+    },
+    "informative_only": {
+      "interaction_correct": 5512,
+      "additive_correct": 5411,
+      "interaction_only_correct": 138,
+      "additive_only_correct": 37,
+      "interaction_minus_additive_pp": 1.6438802083333333,
+      "paired_episode_bootstrap_95_percentile_pp": [
+        1.2532552083333333,
+        2.05078125
+      ],
+      "interaction_minus_additive_nll": -0.023262106667233606
+    },
+    "invariant_only": {
+      "interaction_correct": 4351,
+      "additive_correct": 4337,
+      "interaction_only_correct": 28,
+      "additive_only_correct": 14,
+      "interaction_minus_additive_pp": 0.22786458333333334,
+      "paired_episode_bootstrap_95_percentile_pp": [
+        0.01627604166666667,
+        0.439453125
+      ],
+      "interaction_minus_additive_nll": -0.045235590762185085
+    },
+    "none": {
+      "interaction_correct": 4337,
+      "additive_correct": 4324,
+      "interaction_only_correct": 19,
+      "additive_only_correct": 6,
+      "interaction_minus_additive_pp": 0.21158854166666666,
+      "paired_episode_bootstrap_95_percentile_pp": [
+        0.06510416666666666,
+        0.35807291666666663
+      ],
+      "interaction_minus_additive_nll": -0.03422275368163563
+    }
+  },
+  "source_sha256": {
+    "runs/silent-routing/loop-interaction/seed-7/results.json": "797cdae75ab445c560d4b9d0d78576616d92eeeae1e7df843884ed62b06d75a4",
+    "runs/silent-routing/loop-interaction/seed-7/trials.csv": "9c4ada37ac5439796d39e5e1ef59dffb740245ab0374e46f7077503827637352",
+    "runs/silent-routing/loop-interaction/seed-7/validation.csv": "8ead0ed454b216a21f03ab5b631016dce5bf9e6e2c731c362bc39dc8a33707ad",
+    "runs/silent-routing/loop-additive/seed-7/results.json": "91b81341dca6d52a1b03c53b0a4878fd4d809b54778355c94ff6009b8a37eb65",
+    "runs/silent-routing/loop-additive/seed-7/trials.csv": "5a35a39f46a47bdf505adfda5f06f73b004c9425229d70ab9e6fd8e81b98fc4c",
+    "runs/silent-routing/loop-additive/seed-7/validation.csv": "8bfb154853a74d602972e6969272723befdc8cfb4ca83ba892da0fd6c0da23f9"
+  }
+}
