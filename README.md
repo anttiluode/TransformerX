@@ -2,13 +2,28 @@
 
 **A continuing state that changes how a transformer processes its next observation.**
 
-Three experiments, one memory mechanism:
+Three controlled experiments, plus a persistent Qwen chatbot:
 
 - **Language:** remember changing dictionaries in two contexts, answer after distracting events, and return to an earlier context. Pretrained option: DistilGPT-2.
 - **Vision:** observe two moving objects, track direction changes, and answer about either object after both disappear. Pretrained option: ViT.
 - **Silent rules:** infer an unannounced changing categorization rule from noisy feedback, with matched interaction/additive routing and state-disconnection controls. Pretrained option: DistilGPT-2.
+- **Persistent chat:** local Qwen3-0.6B language generation, saved conversations, editable notes, older-exchange recall and an optional separately trained neural loop. [Launch guide](CHAT.md).
 
 This is an experimental implementation inspired by [RoundAndRound](https://github.com/anttiluode/RoundAndRound) and [LoopAImemory](https://github.com/anttiluode/LoopAImemory). **The completed nine-run GPU sweep shows useful history dependence across three seeds, but no clear accuracy advantage for the extra multiplicative router features.** The language task is supervised classification of textual queries, not a chat model or language-generation benchmark. The visual scenes are synthetic. Pretrained integrations are real model modifications. Completed pretrained GPU results and their limits are summarized below; the original CPU verification used small randomly initialized GPT-2/ViT configurations.
+
+## Try the persistent chatbot
+
+After the [Windows environment setup](#start-on-windows), update your checkout and run:
+
+```powershell
+git pull
+.\.venv\Scripts\python -m pip install -e ".[chat]"
+.\run_chat.bat
+```
+
+A local browser chat opens at **http://127.0.0.1:7860** after Qwen loads. Conversations and memory notes survive restarts; the app shows which older exchanges enter each prompt. Sessions can be exported, deleted or resumed. First launch downloads model weights; later launches support `--local-files-only`.
+
+**The default is usable text-memory chat, not a claim that the neural loop makes Qwen smarter.** A Qwen-specific loop-training command and load/reset/toggle controls are included. No trained general-chat controller is bundled; the existing classification checkpoints are incompatible. The classifier results below do not measure chatbot performance. See **[CHAT.md](CHAT.md)** for memory behavior, a short GPU training check and comparisons to run.
 
 ## GPU results · 30 October 2026 · complete nine-run sweep
 

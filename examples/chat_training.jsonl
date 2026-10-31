@@ -1,0 +1,4 @@
+{"turns":[{"user":"For this conversation, please give distances in kilometres.","assistant":"Understood. I will use kilometres."},{"user":"How far is a five-mile run?","assistant":"About 8.05 kilometres."}]}
+{"turns":[{"user":"Our demonstration project is called Cedar. Remember that name for the next question.","assistant":"The demonstration project is called Cedar."},{"user":"What is our demonstration project called?","assistant":"Cedar."}]}
+{"turns":[{"user":"Please answer in Finnish for now.","assistant":"Selvä. Vastaan suomeksi."},{"user":"What is two plus two?","assistant":"Neljä."}]}
+{"turns":[{"user":"Use concise answers, one sentence when possible.","assistant":"Understood; I will keep answers concise."},{"user":"Actually, switch to detailed explanations when I ask why.","assistant":"Understood. I will explain in more detail when you ask why."}]}

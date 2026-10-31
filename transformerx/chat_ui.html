@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TransformerX · Persistent chat</title>
+<style>
+:root{color-scheme:light;--paper:#f7f7f2;--ink:#20362f;--muted:#697a70;--line:#dce3d9;--accent:#24694e;--soft:#eaf1e6;--white:#fff}
+*{box-sizing:border-box}body{margin:0;font:15px/1.55 system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:var(--paper)}
+button,input,textarea,select{font:inherit}button{cursor:pointer;border:1px solid var(--line);border-radius:9px;background:white;color:var(--ink);padding:8px 13px}button:hover{border-color:var(--accent);background:var(--soft)}button:disabled{opacity:.5;cursor:wait}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #8cbd9b;outline-offset:2px}
+.shell{display:grid;grid-template-columns:285px minmax(0,1fr);height:100dvh}.sidebar{border-right:1px solid var(--line);padding:26px 20px;display:flex;flex-direction:column;gap:18px;overflow:auto;background:#eef1e9}.brand{font-size:22px;font-weight:750;letter-spacing:-.8px}.brand span{color:var(--accent)}.eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:650;color:var(--muted)}.sidebar h2{font-size:12px;text-transform:uppercase;letter-spacing:1.2px;margin:0 0 9px}.primary{background:var(--accent);color:white;border-color:var(--accent)}.primary:hover{background:#19543d;color:white}.sessions{display:flex;flex-direction:column;gap:5px;min-height:75px;max-height:28vh;overflow:auto}.session{border-color:transparent;text-align:left;background:transparent;width:100%;overflow:hidden}.session.active{background:white;border-color:var(--line)}.session strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px}.session small{font-size:11px;color:var(--muted)}.notes{width:100%;min-height:130px;resize:vertical;background:#ffffffb8;border:1px solid var(--line);padding:11px;border-radius:9px;font-size:13px;color:var(--ink)}.hint{font-size:12px;color:var(--muted);margin:5px 0}.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.sidebar .bottom{margin-top:auto;font-size:11px;color:var(--muted)}
+main{display:flex;flex-direction:column;min-height:0;min-width:0}.topbar{padding:19px 32px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:15px}.topbar h1{font-size:17px;margin:0;letter-spacing:-.3px}.badge{font-size:11px;border:1px solid var(--line);border-radius:20px;padding:4px 10px;background:white}.dot{color:var(--accent);margin-right:5px}.model{font-size:12px;color:var(--muted)}.memorybar{padding:12px 32px;border-bottom:1px solid var(--line);display:flex;gap:22px;align-items:center;flex-wrap:wrap;font-size:13px}.memorybar label{display:flex;align-items:center;gap:7px}.memorybar input{accent-color:var(--accent)}.memorybar small{color:var(--muted)}
+.messages{flex:1;overflow-y:auto;padding:30px max(28px,calc((100% - 850px)/2));scroll-behavior:smooth}.welcome{max-width:610px;margin:9vh auto 30px}.welcome h2{font:500 clamp(30px,4vw,44px)/1.15 Georgia,serif;letter-spacing:-1.3px;margin:12px 0 20px}.welcome p{color:var(--muted);max-width:510px}.suggestions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:25px}.suggestions button{text-align:left;padding:16px;font-size:13px;background:#ffffff90}.message{margin:0 0 28px}.message .role{font-size:11px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}.message.user .body{background:var(--soft);padding:15px 19px;border-radius:13px}.body{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7}.body pre{white-space:pre-wrap;background:#20362f;color:#e7eee9;padding:18px;border-radius:10px;font:13px/1.6 ui-monospace,Consolas,monospace;overflow:auto}.message details{font-size:11px;color:var(--muted);margin-top:10px}.message summary{cursor:pointer}.busy{font-size:13px;color:var(--muted);padding:10px 0}.busy:before{content:'';display:inline-block;width:9px;height:9px;background:var(--accent);border-radius:50%;margin-right:10px;animation:pulse 1s infinite alternate}@keyframes pulse{to{opacity:.25}}
+.composer-wrap{padding:12px max(28px,calc((100% - 850px)/2)) 22px}.composer{border:1px solid #cbd8c8;border-radius:14px;background:white;box-shadow:0 4px 20px #25382d06;padding:13px}.composer textarea{width:100%;resize:vertical;border:0;min-height:58px;max-height:200px;outline:none;background:transparent;color:var(--ink)}.composer-footer{display:flex;justify-content:space-between;align-items:center;gap:10px}.composer-footer small{color:var(--muted);font-size:11px}.error{margin-bottom:10px;border-radius:8px;padding:10px 14px;background:#fff1e8;color:#8c3c1c;font-size:13px;white-space:pre-wrap}.error:empty{display:none}.settings{font-size:12px;color:var(--muted);margin:10px 0 0}.settings select,.settings input{width:75px;padding:3px;border:1px solid var(--line);border-radius:5px;background:white;font-size:12px}.danger{color:#954a36}.footer-note{font-size:11px;color:var(--muted);margin:9px 0 0;text-align:center}
+@media(max-width:750px){.shell{grid-template-columns:1fr;height:auto;min-height:100dvh}.sidebar{border-right:0;border-bottom:1px solid var(--line);padding:15px;gap:12px}.sidebar .brand{font-size:20px}.sessions{max-height:100px}.sidebar details:not([open]){margin:0}.sidebar .bottom{display:none}main{height:78dvh;min-height:550px}.topbar{padding:15px}.memorybar{padding:10px 15px;gap:12px}.messages{padding:20px 16px}.composer-wrap{padding:10px 15px}.welcome{margin:20px 0}.suggestions{grid-template-columns:1fr}.topbar .row{justify-content:flex-end}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="sidebar">
+  <div><div class="brand">Transformer<span>X</span></div><div class="eyebrow">Persistent chat · local</div></div>
+  <button class="primary" id="new">＋ New conversation</button>
+  <section><h2>Conversations</h2><nav class="sessions" id="sessions" aria-label="Saved conversations"></nav></section>
+  <details open><summary><strong>Memory notes</strong></summary>
+    <p class="hint">Notes for this conversation. Edit facts or preferences you want kept in view.</p>
+    <textarea class="notes" id="notes" maxlength="8000" aria-label="Memory notes" placeholder="For example: We are building a local Python app. Explain changes in plain language."></textarea>
+    <div class="row"><button id="save-notes">Save notes</button><span id="note-status" class="hint" role="status"></span></div>
+    <p class="hint">Notes enter the prompt when text memory is on. Long notes may be shortened to fit.</p>
+  </details>
+  <div class="bottom">Saved on this computer. No cloud chat service.<br>First launch downloads the Qwen model.</div>
+</aside>
+<main>
+  <header class="topbar"><div><h1 id="title">Your continuing conversation</h1><div class="model" id="model">Connecting to local model…</div></div>
+    <div class="row"><span class="badge"><span class="dot">●</span> Local</span><button id="reload" title="Reload saved conversation">Reload</button><button id="export">Export</button><button id="delete" class="danger">Delete</button></div>
+  </header>
+  <div class="memorybar">
+    <label><input type="checkbox" id="text-memory" checked>Text memory</label>
+    <label><input type="checkbox" id="loop" disabled>Trained neural loop</label>
+    <small id="loop-status">Checking controller…</small>
+    <button id="reset-loop" title="Clear latent state while keeping transcript and notes">Reset loop</button>
+  </div>
+  <section id="messages" class="messages" aria-label="Conversation" aria-live="polite"></section>
+  <div class="composer-wrap">
+    <div id="error" class="error" role="alert"></div>
+    <form class="composer" id="compose">
+      <textarea id="input" aria-label="Your message" placeholder="What shall we work on?" maxlength="32000" rows="2"></textarea>
+      <div class="composer-footer"><small>Enter to send · Shift+Enter for a new line</small><button id="send" type="submit" class="primary">Send ↑</button></div>
+    </form>
+    <details class="settings"><summary>Response settings</summary><div class="row">
+      <label>Max tokens <select id="length"><option>128</option><option selected>256</option><option>512</option><option>1024</option></select></label>
+      <label>Temperature <input id="temperature" type="number" min="0" max="2" step="0.1" value="0.7"></label>
+      <span>0 = deterministic decoding.</span></div></details>
+    <p class="footer-note">Experimental small-model chat. Saved text memory is separate from the learned loop.</p>
+  </div>
+</main>
+</div>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+let session=null, status=null, busy=false;
+async function api(path,body){
+  const options=body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json','X-TransformerX':'1'},body:JSON.stringify(body)};
+  const response=await fetch('/api/'+path,options);
+  const value=await response.json();
+  if(!response.ok)throw new Error(value.error||'Request failed');
+  return value;
+}
+function showError(error){$('error').textContent=error?.message||String(error);}
+function setBusy(value){busy=value;document.querySelectorAll('button,input,select,textarea').forEach(el=>el.disabled=value);
+  $('loop').disabled=value||!status?.loop_available;$('reset-loop').disabled=value||!session?.neural_state;
+}
+async function action(fn){if(busy)return;setBusy(true);$('error').textContent='';try{await fn();}catch(e){showError(e);}finally{setBusy(false);}}
+function renderBody(container,text){
+  // DOM text nodes only: neither model output nor stored messages can execute HTML.
+  const parts=text.split('```');
+  parts.forEach((part,i)=>{const el=document.createElement(i%2?'pre':'span');el.textContent=part;container.append(el);});
+}
+function render(){
+  $('title').textContent=session.title;$('notes').value=session.notes;$('note-status').textContent='';
+  const box=$('messages');box.replaceChildren();
+  if(!session.messages.length){
+    const welcome=document.createElement('div');welcome.className='welcome';
+    welcome.innerHTML='<div class="eyebrow">A little context goes a long way</div><h2>Pick up where<br>you left off.</h2><p>Talk, come back, and continue. Recent messages and relevant older exchanges can return to the prompt. Keep the important details in your memory notes.</p><div class="suggestions"><button type="button">Help me think through a project</button><button type="button">Let’s work on some Python</button></div>';
+    welcome.querySelectorAll('button').forEach(b=>b.onclick=()=>{$('input').value=b.textContent;$('input').focus();});box.append(welcome);
+  }
+  for(const message of session.messages){
+    const article=document.createElement('article');article.className='message '+message.role;
+    const label=document.createElement('div');label.className='role';label.textContent=message.role==='user'?'You':'Qwen';
+    const body=document.createElement('div');body.className='body';renderBody(body,message.content);article.append(label,body);
+    if(message.diagnostics){const d=message.diagnostics;const details=document.createElement('details');const summary=document.createElement('summary');summary.textContent=`${d.generated_tokens} tokens · ${d.elapsed_seconds}s · Memory details`;
+      const info=document.createElement('div');info.textContent=`Prompt: ${d.prompt_tokens} tokens. Recent turns: ${d.recent_turns}. Recalled turns: ${d.recalled_turns.map(n=>n+1).join(', ')||'none'}. Text memory: ${d.text_memory?'on':'off'}. Neural loop: ${d.loop_enabled?'on':'off'}. ${d.notes_truncated?'Notes shortened to fit. ':''}${d.notice||''}`;details.append(summary,info);article.append(details);}
+    box.append(article);
+  }
+  box.scrollTop=box.scrollHeight;
+  $('reset-loop').disabled=busy||!session.neural_state;
+  try{localStorage.setItem('transformerx-session',session.id);}catch(e){}
+}
+async function refreshList(){const all=await api('sessions');$('sessions').replaceChildren();for(const item of all){
+  const b=document.createElement('button');b.className='session'+(item.id===session?.id?' active':'');
+  const title=document.createElement('strong');title.textContent=item.title;const small=document.createElement('small');small.textContent=`${item.turns} turns · ${new Date(item.updated_at).toLocaleDateString()}`;b.append(title,small);
+  b.onclick=()=>action(async()=>{await saveNotes();session=await api('session?id='+item.id);render();await refreshList();});$('sessions').append(b);
+}}
+async function saveNotes(){if(session&&$('notes').value!==session.notes){session=await api('notes',{id:session.id,revision:session.revision,notes:$('notes').value});$('note-status').textContent='Saved';}}
+$('save-notes').onclick=()=>action(saveNotes);
+$('notes').oninput=()=>{$('note-status').textContent=$('notes').value===session?.notes?'':'Unsaved';};
+$('new').onclick=()=>action(async()=>{await saveNotes();session=await api('new',{});render();await refreshList();});
+$('reload').onclick=()=>action(async()=>{if(session&&$('notes').value!==session.notes&&!confirm('Discard unsaved note edits and reload?'))return;await initialize();});
+$('reset-loop').onclick=()=>action(async()=>{await saveNotes();session=await api('reset-loop',{id:session.id,revision:session.revision});render();});
+$('delete').onclick=()=>action(async()=>{if(!session||!confirm('Delete this conversation, its notes and its neural state from this computer?'))return;await api('delete',{id:session.id,revision:session.revision});session=null;await initialize();});
+$('export').onclick=()=>action(async()=>{await saveNotes();const value=await api('export?id='+session.id);const url=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)],{type:'application/json'}));const link=document.createElement('a');link.href=url;link.download='transformerx-'+session.id+'.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+$('text-memory').onchange=()=>{$('loop-status').textContent=loopDescription();};
+$('loop').onchange=()=>{$('loop-status').textContent=loopDescription();};
+function loopDescription(){return !status?.loop_available?'No trained controller loaded':$('loop').checked?'Experimental controller active':'Controller available · saved state paused';}
+$('compose').onsubmit=event=>{event.preventDefault();action(async()=>{
+  const text=$('input').value.trim();if(!text)return;await saveNotes();
+  const pending=document.createElement('div');pending.className='busy';pending.textContent='Qwen is responding…';$('messages').append(pending);$('messages').scrollTop=$('messages').scrollHeight;
+  const start=Date.now();const timer=setInterval(()=>{pending.textContent=`Qwen is responding… ${Math.floor((Date.now()-start)/1000)}s`;},1000);
+  try{const result=await api('chat',{id:session.id,revision:session.revision,message:text,text_memory:$('text-memory').checked,loop_enabled:$('loop').checked,max_new_tokens:Number($('length').value),temperature:Number($('temperature').value)});
+    session=result.session;$('input').value='';render();await refreshList();
+  }finally{clearInterval(timer);pending.remove();}
+});};
+$('input').onkeydown=event=>{if(event.key==='Enter'&&!event.shiftKey&&!event.isComposing){event.preventDefault();$('compose').requestSubmit();}};
+async function initialize(){status=await api('status');$('model').textContent=`${status.model} · ${status.device.toUpperCase()} · ${status.context_tokens}-token prompt budget`;
+  if(!status.loop_available)$('loop').checked=false;
+  $('loop-status').textContent=loopDescription();const all=await api('sessions');let saved=null;try{saved=localStorage.getItem('transformerx-session');}catch(e){}
+  const selected=all.find(s=>s.id===saved)||all[0];session=selected?await api('session?id='+selected.id):await api('new',{});render();await refreshList();}
+action(initialize);
+</script>
+</body>
+</html>
